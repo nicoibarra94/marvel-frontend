@@ -1,19 +1,18 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Personnages = () => {
-  const navigate = useNavigate();
-
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/characters/${page}`
+          `http://localhost:3000/characters?skip=${page}&title=${search}`
         );
         setData(response.data.data);
         setIsLoading(false);
@@ -22,7 +21,7 @@ const Personnages = () => {
       }
     };
     fetchData();
-  }, [page]);
+  }, [page, search]);
 
   const handleClickNext = async () => {
     setPage(page + 1);
@@ -36,6 +35,12 @@ const Personnages = () => {
     <p>Loading...</p>
   ) : (
     <div>
+      <input
+        type="text"
+        placeholder="Cherche un comic"
+        onChange={(event) => setSearch(event.target.value)}
+      />
+
       <div className="character-container">
         {data.results.map((character, index) => {
           const id = character._id;

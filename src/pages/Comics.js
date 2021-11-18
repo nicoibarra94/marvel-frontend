@@ -5,13 +5,13 @@ const Comics = () => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const [search, setSearch] = useState("a");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/comics/${page}/${search}`
+          `http://localhost:3000/comics?skip=${page}&title=${search}`
         );
         setData(response.data);
         setIsLoading(false);

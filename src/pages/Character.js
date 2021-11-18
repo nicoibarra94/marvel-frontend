@@ -19,7 +19,7 @@ const Character = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [id]);
 
   return isLoading === true ? (
     <p>Loading...</p>
