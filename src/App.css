@@ -1,1 +1,21 @@
 /* Other rules */
+.header img {
+  width: 100px;
+  height: 40px;
+}
+
+.character-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.character-box {
+  border: 1px solid black;
+  width: 300px;
+  height: 500px;
+}
+
+.character-box img {
+  width: 150px;
+  height: 200px;
+}
