@@ -7,6 +7,7 @@ import Personnages from "./pages/Personnages";
 import Character from "./pages/Character";
 import Comics from "./pages/Comics";
 import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 
 function App() {
   const [token, setToken] = useState(Cookies.get("userToken" || null));
@@ -28,6 +29,7 @@ function App() {
         <Route path="character/:id" element={<Character />} />
         <Route path="/comics" element={<Comics />} />
         <Route path="/signup" element={<Signup setUser={setUser} />} />
+        <Route path="/login" element={<Login setUser={setUser} />} />
       </Routes>
     </Router>
   );
