@@ -5,7 +5,7 @@ const Header = () => {
   const navigate = useNavigate();
   return (
     <div className="header">
-      <img src={Logo} alt="" />
+      <img src={Logo} alt="" onClick={() => navigate("/")} />
       <button onClick={() => navigate("/")}> Personnnages</button>
       <button onClick={() => navigate("/comics")}> Comics </button>
       <button> Favoris </button>

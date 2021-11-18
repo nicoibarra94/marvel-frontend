@@ -12,7 +12,9 @@ const Personnages = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/characters/0");
+        const response = await axios.get(
+          `http://localhost:3000/characters/${page}`
+        );
         setData(response.data.data);
         setIsLoading(false);
       } catch (error) {
@@ -20,32 +22,14 @@ const Personnages = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [page]);
 
   const handleClickNext = async () => {
     setPage(page + 1);
-    const skip = page * 100;
-    try {
-      const response = await axios.get(
-        `http://localhost:3000/characters/${skip}`
-      );
-      setData(response.data.data);
-    } catch (error) {
-      console.log(error.message);
-    }
   };
 
   const handleClickPrevious = async () => {
     setPage(page - 1);
-    const skip = (page - 1) * 100;
-    try {
-      const response = await axios.get(
-        `http://localhost:3000/characters/${page === 1 ? 0 : skip}`
-      );
-      setData(response.data.data);
-    } catch (error) {
-      console.log(error.message);
-    }
   };
 
   return isLoading === true ? (
@@ -74,7 +58,6 @@ const Personnages = () => {
       {page !== 1 && (
         <button onClick={handleClickPrevious}>Previous Page</button>
       )}
-
       <span>Page: {page} of 17</span>
       <button onClick={handleClickNext}>Next Page</button>
     </div>
