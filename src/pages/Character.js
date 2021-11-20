@@ -13,6 +13,7 @@ const Character = () => {
       try {
         const response = await axios.get(`http://localhost:3000/comics/${id}`);
         setData(response.data.data);
+        console.log(response.data);
         setIsLoading(false);
       } catch (error) {
         console.log(error.message);

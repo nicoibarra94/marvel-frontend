@@ -8,7 +8,7 @@ const Header = () => {
       <img src={Logo} alt="" onClick={() => navigate("/")} />
       <button onClick={() => navigate("/")}> Personnnages</button>
       <button onClick={() => navigate("/comics")}> Comics </button>
-      <button> Favoris </button>
+      <button onClick={() => navigate("/favorites")}> Favoris </button>
     </div>
   );
 };

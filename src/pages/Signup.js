@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
-import Cookies from "js-cookie";
 
 const Signup = ({ setUser }) => {
   const navigate = useNavigate();

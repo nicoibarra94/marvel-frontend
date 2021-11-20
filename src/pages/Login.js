@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
 const Login = ({ setUser }) => {
@@ -31,7 +30,6 @@ const Login = ({ setUser }) => {
                 password: password,
               }
             );
-            console.log(response);
             if (response.data.Error) {
               alert(response.data.Error);
             } else {

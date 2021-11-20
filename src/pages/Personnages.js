@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Personnages = () => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+
+  const userToken = Cookies.get("userToken");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,18 +48,35 @@ const Personnages = () => {
         {data.results.map((character, index) => {
           const id = character._id;
           return (
-            <Link
-              to={`/character/${id}`}
-              className="character-box"
-              key={character._id}
-            >
-              <img
-                src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-                alt=""
-              />
+            <div className="character-box" key={character._id}>
+              <Link to={`/character/${id}`}>
+                <img
+                  src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                  alt=""
+                />
+              </Link>
               <p>{character.name}</p>
               <p>{character.description}</p>
-            </Link>
+              <button
+                onClick={async () => {
+                  const response = await axios.post(
+                    `http://localhost:3000/characters/addfavorite?name=${
+                      character.name
+                    }&description=${
+                      character.description
+                    }&photo=${`${character.thumbnail.path}.${character.thumbnail.extension}`}`,
+                    {},
+                    {
+                      headers: {
+                        Authorization: "Bearer " + userToken,
+                      },
+                    }
+                  );
+                }}
+              >
+                Add to favorites
+              </button>
+            </div>
           );
         })}
       </div>
