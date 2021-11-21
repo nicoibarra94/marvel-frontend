@@ -14,7 +14,7 @@ const Favorites = ({ token }) => {
     const fetchData = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:3000/favorites",
+          "https://marvel-backend-ibarra.herokuapp.com/favorites",
           {},
           {
             headers: {

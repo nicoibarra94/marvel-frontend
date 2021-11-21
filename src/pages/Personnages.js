@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import Cookies from "js-cookie";
 import M from "../images/m-marvel.png";
 
@@ -19,7 +18,7 @@ const Personnages = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/characters?skip=${page}&title=${search}`
+          `https://marvel-backend-ibarra.herokuapp.com/characters?skip=${page}&title=${search}`
         );
         setData(response.data.data);
         setIsLoading(false);
@@ -72,7 +71,7 @@ const Personnages = () => {
                   onClick={async () => {
                     if (userToken) {
                       const response = await axios.post(
-                        `http://localhost:3000/characters/addfavorite?id=${id}&name=${
+                        `https://marvel-backend-ibarra.herokuapp.com/characters/addfavorite?id=${id}&name=${
                           character.name
                         }&description=${
                           character.description
@@ -91,7 +90,7 @@ const Personnages = () => {
                         alert("Added to your favorite list!");
                       }
                     } else {
-                      navigate("/signup");
+                      navigate("/login");
                     }
                   }}
                 >

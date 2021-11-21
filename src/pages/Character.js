@@ -12,7 +12,9 @@ const Character = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/comics/${id}`);
+        const response = await axios.get(
+          `https://marvel-backend-ibarra.herokuapp.com/comics/${id}`
+        );
         setData(response.data.data);
         console.log(response.data);
         setIsLoading(false);

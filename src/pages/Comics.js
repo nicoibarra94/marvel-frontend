@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import M from "../images/m-marvel.png";
 
@@ -11,11 +12,13 @@ const Comics = () => {
 
   const userToken = Cookies.get("userToken");
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/comics?skip=${page}&title=${search}`
+          `https://marvel-backend-ibarra.herokuapp.com/comics?skip=${page}&title=${search}`
         );
         setData(response.data);
         setIsLoading(false);
@@ -64,22 +67,26 @@ const Comics = () => {
                 </div>
                 <button
                   onClick={async () => {
-                    const response = await axios.post(
-                      `http://localhost:3000/comics/addfavorite/?photo=${`${comic.thumbnail.path}.${comic.thumbnail.extension}`}&id=${
-                        comic._id
-                      }&description=${comic.description}&&name=${comic.title}`,
-                      {},
-                      {
-                        headers: {
-                          Authorization: "Bearer " + userToken,
-                        },
+                    if (userToken) {
+                      const response = await axios.post(
+                        `https://marvel-backend-ibarra.herokuapp.com/comics/addfavorite/?photo=${`${comic.thumbnail.path}.${comic.thumbnail.extension}`}&id=${
+                          comic._id
+                        }&description=${comic.description}&name=${comic.title}`,
+                        {},
+                        {
+                          headers: {
+                            Authorization: "Bearer " + userToken,
+                          },
+                        }
+                      );
+                      console.log(response);
+                      if (response.data.error) {
+                        alert(response.data.error);
+                      } else {
+                        alert("Added to your favorite list!");
                       }
-                    );
-                    console.log(response);
-                    if (response.data.error) {
-                      alert(response.data.error);
                     } else {
-                      alert("Added to your favorite list!");
+                      navigate("/login");
                     }
                   }}
                 >

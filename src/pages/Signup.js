@@ -24,7 +24,7 @@ const Signup = ({ setUser, token }) => {
           event.preventDefault();
           try {
             const response = await axios.post(
-              "http://localhost:3000/user/signup",
+              "https://marvel-backend-ibarra.herokuapp.com/user/signup",
               {
                 password: password,
                 email: email,
