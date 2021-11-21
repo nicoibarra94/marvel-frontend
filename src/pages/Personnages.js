@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 import Cookies from "js-cookie";
 import M from "../images/m-marvel.png";
 
@@ -12,13 +13,14 @@ const Personnages = () => {
 
   const userToken = Cookies.get("userToken");
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
           `http://localhost:3000/characters?skip=${page}&title=${search}`
         );
-        console.log(response);
         setData(response.data.data);
         setIsLoading(false);
       } catch (error) {
@@ -47,7 +49,7 @@ const Personnages = () => {
 
         <input
           type="text"
-          placeholder="Look for your favorite characters"
+          placeholder="Looking for an specific character? Try here..."
           onChange={(event) => setSearch(event.target.value)}
         />
       </div>
@@ -68,20 +70,29 @@ const Personnages = () => {
                 {/* <p>{character.description}</p> */}
                 <button
                   onClick={async () => {
-                    const response = await axios.post(
-                      `http://localhost:3000/characters/addfavorite?name=${
-                        character.name
-                      }&description=${
-                        character.description
-                      }&photo=${`${character.thumbnail.path}.${character.thumbnail.extension}`}`,
-                      {},
-                      {
-                        headers: {
-                          Authorization: "Bearer " + userToken,
-                        },
+                    if (userToken) {
+                      const response = await axios.post(
+                        `http://localhost:3000/characters/addfavorite?id=${id}&name=${
+                          character.name
+                        }&description=${
+                          character.description
+                        }&photo=${`${character.thumbnail.path}.${character.thumbnail.extension}`}`,
+                        {},
+                        {
+                          headers: {
+                            Authorization: "Bearer " + userToken,
+                          },
+                        }
+                      );
+                      console.log(response);
+                      if (response.data.error) {
+                        alert(response.data.error);
+                      } else {
+                        alert("Added to your favorite list!");
                       }
-                    );
-                    alert("Added to your favorites!");
+                    } else {
+                      navigate("/signup");
+                    }
                   }}
                 >
                   Add to favorites

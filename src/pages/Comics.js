@@ -65,11 +65,9 @@ const Comics = () => {
                 <button
                   onClick={async () => {
                     const response = await axios.post(
-                      `http://localhost:3000/comics/addfavorite?description=${
-                        comic.description
-                      }&photo=${`${comic.thumbnail.path}.${comic.thumbnail.extension}`}&name=${
-                        comic.title
-                      }`,
+                      `http://localhost:3000/comics/addfavorite/?photo=${`${comic.thumbnail.path}.${comic.thumbnail.extension}`}&id=${
+                        comic._id
+                      }&description=${comic.description}&&name=${comic.title}`,
                       {},
                       {
                         headers: {
@@ -77,6 +75,12 @@ const Comics = () => {
                         },
                       }
                     );
+                    console.log(response);
+                    if (response.data.error) {
+                      alert(response.data.error);
+                    } else {
+                      alert("Added to your favorite list!");
+                    }
                   }}
                 >
                   Add to favorites
