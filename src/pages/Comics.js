@@ -69,7 +69,7 @@ const Comics = () => {
                   onClick={async () => {
                     if (userToken) {
                       const response = await axios.post(
-                        `https://marvel-backend-ibarra.herokuapp.com/comics/addfavorite/?name=${
+                        `https://marvel-backend-ibarra.herokuapp.com/comics/addfavorite?name=${
                           comic.title
                         }&photo=${`${comic.thumbnail.path}.${comic.thumbnail.extension}`}&id=${
                           comic._id
