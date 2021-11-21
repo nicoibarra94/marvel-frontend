@@ -103,7 +103,7 @@ const Personnages = () => {
         })}
       </div>
       <div className="page-buttons">
-        <img src={M} />
+        <img src={M} alt="" />
         {page !== 1 && (
           <button onClick={handleClickPrevious}>Previous Page</button>
         )}

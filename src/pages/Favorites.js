@@ -51,7 +51,7 @@ const Favorites = ({ token }) => {
         <div>
           {data.comics.map((comic, index) => {
             return (
-              <div className="character-comics">
+              <div key={comic.id} className="character-comics">
                 <img src={comic.photo} alt="" />
                 <div className="character-comics-texts">
                   <h1>{comic.name}</h1>

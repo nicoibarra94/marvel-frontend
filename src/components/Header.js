@@ -1,11 +1,8 @@
 import Logo from "../images/Marvel_Logo.svg.png";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
 const Header = ({ token, setUser }) => {
   const navigate = useNavigate();
-
-  const userToken = Cookies.get("userToken");
 
   return (
     <div className="header">
