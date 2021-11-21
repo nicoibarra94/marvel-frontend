@@ -81,6 +81,7 @@ const Personnages = () => {
                         },
                       }
                     );
+                    alert("Added to your favorites!");
                   }}
                 >
                   Add to favorites

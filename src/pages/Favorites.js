@@ -76,7 +76,7 @@ const Favorites = ({ token }) => {
           {data.characters.map((character, index) => {
             return (
               <div className="character-box">
-                <img src={character.photo} alt="" />
+                <img id="favorite-image" src={character.photo} alt="" />
                 <div className="black-box-characters">
                   <h1>{character.name}</h1>
                   {/* <p>{character.description}</p> */}

@@ -158,6 +158,10 @@
   height: 200px;
 }
 
+#favorite-image {
+  height: 340px;
+}
+
 /* COMICS */
 .comic-list-image {
   width: 100%;
