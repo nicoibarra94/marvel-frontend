@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import M from "../images/m-marvel.png";
 
 const Comics = () => {
   const [data, setData] = useState();
@@ -27,61 +28,72 @@ const Comics = () => {
 
   const handleClickNext = async () => {
     setPage(page + 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleClickPrevious = async () => {
     setPage(page - 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return isLoading === true ? (
     <p>Loading...</p>
   ) : (
     <div>
-      <input
-        type="text"
-        placeholder="Cherche un comic"
-        onChange={(event) => setSearch(event.target.value)}
-      />
+      <div className="comic-list-image">
+        <p>The Marvel Comics</p>
+        <input
+          type="text"
+          placeholder="Looking for an specific title?  Try here..."
+          onChange={(event) => setSearch(event.target.value)}
+        />
+      </div>
 
       <div className="character-container">
         {data.data.map((comic, index) => {
           return (
-            <div key={comic._id} className="character-box">
+            <div key={comic._id} className="character-comics">
               <img
                 src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
                 alt=""
               />
-              <h1>{comic.title}</h1>
-              <p>{comic.description}</p>
-              <button
-                onClick={async () => {
-                  const response = await axios.post(
-                    `http://localhost:3000/comics/addfavorite?description=${
-                      comic.description
-                    }&photo=${`${comic.thumbnail.path}.${comic.thumbnail.extension}`}&name=${
-                      comic.title
-                    }`,
-                    {},
-                    {
-                      headers: {
-                        Authorization: "Bearer " + userToken,
-                      },
-                    }
-                  );
-                }}
-              >
-                Add to favorites
-              </button>
+              <div className="comics-container">
+                <div className="character-comics-texts">
+                  <h1>{comic.title}</h1>
+                  <p>{comic.description}</p>
+                </div>
+                <button
+                  onClick={async () => {
+                    const response = await axios.post(
+                      `http://localhost:3000/comics/addfavorite?description=${
+                        comic.description
+                      }&photo=${`${comic.thumbnail.path}.${comic.thumbnail.extension}`}&name=${
+                        comic.title
+                      }`,
+                      {},
+                      {
+                        headers: {
+                          Authorization: "Bearer " + userToken,
+                        },
+                      }
+                    );
+                  }}
+                >
+                  Add to favorites
+                </button>
+              </div>
             </div>
           );
         })}
       </div>
-
-      {page !== 1 && (
-        <button onClick={handleClickPrevious}>Previous Page</button>
-      )}
-      <span>Page: {page} of 17</span>
-      <button onClick={handleClickNext}>Next Page</button>
+      <div className="page-buttons">
+        <img src={M} />
+        {page !== 1 && (
+          <button onClick={handleClickPrevious}>Previous Page</button>
+        )}
+        <span>Page: {page} of 17</span>
+        <button onClick={handleClickNext}>Next Page</button>
+      </div>
     </div>
   );
 };

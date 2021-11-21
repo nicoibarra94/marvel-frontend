@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import M from "../images/m-marvel.png";
 
 const Character = () => {
   const [data, setData] = useState();
@@ -26,15 +27,21 @@ const Character = () => {
     <p>Loading...</p>
   ) : (
     <div>
+      <div className="title-character-comics">
+        <h1>Featured Comics</h1>
+        <img src={M} alt="" />
+      </div>
       {data.comics.map((comic, index) => {
         return (
-          <div key={comic._id} className="character-box">
+          <div className="character-comics" key={comic._id}>
             <img
               src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
               alt=""
             />
-            <h1>{comic.title}</h1>
-            <p>{comic.description}</p>
+            <div className="character-comics-texts">
+              <h1>{comic.title}</h1>
+              <p>{comic.description}</p>
+            </div>
           </div>
         );
       })}

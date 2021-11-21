@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = ({ setUser }) => {
   const navigate = useNavigate();
@@ -17,8 +18,8 @@ const Login = ({ setUser }) => {
   };
 
   return (
-    <div>
-      <h1>Se connecter</h1>
+    <div className="login-box">
+      <h1>Login </h1>
       <form
         onSubmit={async (event) => {
           event.preventDefault();
@@ -41,20 +42,25 @@ const Login = ({ setUser }) => {
           }
         }}
       >
+        <p>Email</p>
         <input
           type="email"
           placeholder="Enter your email "
           value={email}
           onChange={handleEmail}
         />
+        <p>Password</p>
         <input
           type="password"
           placeholder="Enter your password "
           value={password}
           onChange={handlePassword}
         />
-        <button type="submit">Se connecter</button>
+        <button type="submit">Enter</button>
       </form>
+      <Link className="link-to-signup" to="/signup">
+        You don't have an account yet? ¡Click here!
+      </Link>
     </div>
   );
 };
